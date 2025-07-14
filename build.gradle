@@ -3,6 +3,7 @@ plugins {
 	id 'org.jetbrains.kotlin.plugin.spring' version '1.9.25'
 	id 'org.springframework.boot' version '3.5.3'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id "org.jooq.jooq-codegen-gradle" version "3.19.24"
 }
 
 group = 'com.example'
@@ -25,6 +26,7 @@ dependencies {
 	implementation 'org.jetbrains.kotlin:kotlin-reflect'
 	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 	runtimeOnly 'org.postgresql:postgresql'
+	jooqCodegen 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -38,4 +40,32 @@ kotlin {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+jooq {
+	configuration {
+		generator {
+			jdbc {
+				driver = "org.postgresql.Driver"
+				url = "jdbc:postgresql://localhost:5432/mydatabase"
+				// TODO: このあたりの情報は別ファイルなどに移す。今回はデフォルトを採用しているだけなので一旦そのまま進める
+				user = "myuser"
+				password = "secret"
+			}
+			database {
+				name = "org.jooq.meta.postgres.PostgresDatabase"
+				inputSchema = "public"
+			}
+			target {
+				packageName = "com.example.quocard_cording_test.jooq.generated"
+				directory = "build/generated-src/jooq/main"
+			}
+		}
+	}
+}
+
+sourceSets {
+	main {
+		kotlin.srcDir 'build/generated-src/jooq/main'
+	}
 }
