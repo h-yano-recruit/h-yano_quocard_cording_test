@@ -7,6 +7,10 @@ data class AuthorCreateRequest(
     val dateOfBirth: LocalDate
 )
 
+data class AuthorDateOfBirthUpdateRequest(
+    val dateOfBirth: LocalDate
+)
+
 data class AuthorResponse(
     val id: Long,
     val name: String,
