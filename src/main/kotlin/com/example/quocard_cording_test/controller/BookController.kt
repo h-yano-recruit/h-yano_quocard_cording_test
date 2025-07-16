@@ -36,16 +36,4 @@ class BookController(private val bookService: BookService) {
         val updatedBook = bookService.updateBook(id, request)
         return ResponseEntity.ok(updatedBook.toResponse())
     }
-
-    private fun Book.toResponse(): BookResponse {
-        return BookResponse(
-            id = this.id,
-            title = this.title,
-            price = this.price,
-            status = this.status,
-            authors = this.authors.map { it.toResponse() },
-            createdAt = this.createdAt.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME),
-            updatedAt = this.updatedAt.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
-        )
-    }
 }

@@ -3,6 +3,7 @@ package com.example.quocard_cording_test.controller
 import com.example.quocard_cording_test.dto.AuthorCreateRequest
 import com.example.quocard_cording_test.dto.AuthorUpdateRequest
 import com.example.quocard_cording_test.dto.AuthorResponse
+import com.example.quocard_cording_test.dto.BookResponse
 import com.example.quocard_cording_test.dto.toResponse
 import com.example.quocard_cording_test.service.AuthorService
 import org.springframework.http.HttpStatus
@@ -28,5 +29,12 @@ class AuthorController(private val authorService: AuthorService) {
     ): ResponseEntity<AuthorResponse> {
         val updatedAuthor = authorService.updateAuthor(id, request)
         return ResponseEntity.ok(updatedAuthor.toResponse())
+    }
+
+    @GetMapping("/{id}/books")
+    fun findBooksByAuthor(@PathVariable id: Long): ResponseEntity<List<BookResponse>> {
+        val books = authorService.findBooksByAuthor(id)
+        val response = books.map { it.toResponse() }
+        return ResponseEntity.ok(response)
     }
 }

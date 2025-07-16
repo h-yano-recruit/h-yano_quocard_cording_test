@@ -4,6 +4,7 @@ import com.example.quocard_cording_test.dto.AuthorUpdateRequest
 import com.example.quocard_cording_test.model.Author
 import com.example.quocard_cording_test.repository.AuthorRepository
 import com.example.quocard_cording_test.exception.ValidationException
+import com.example.quocard_cording_test.model.Book
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
@@ -27,6 +28,13 @@ class AuthorService(private val authorRepository: AuthorRepository) {
         authorRepository.update(id, request.name, dateOfBirth)
 
         return authorRepository.findById(id)!!
+    }
+
+    fun findBooksByAuthor(id: Long): List<Book> {
+        authorRepository.findById(id)
+            ?: throw ValidationException("ID: ${id} の著者は見つかりません。")
+
+        return authorRepository.findBooksByAuthorId(id)
     }
 
     private fun validateDateOfBirth(dateOfBirth: LocalDate) {
