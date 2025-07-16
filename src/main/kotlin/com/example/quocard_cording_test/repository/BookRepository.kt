@@ -24,15 +24,7 @@ class BookRepository(private val dslContext: DSLContext) {
 
         val newBookId = bookRecord.id!!
 
-        if (authorIds.isNotEmpty()) {
-            val rows = authorIds.map { authorId ->
-                dslContext.newRecord(BOOK_AUTHORS).apply {
-                    this.bookId = newBookId
-                    this.authorId = authorId
-                }
-            }
-            dslContext.batchInsert(rows).execute()
-        }
+        insertBookAuthorAssociations(newBookId, authorIds)
 
         return findById(newBookId) ?: throw IllegalStateException("作成した書籍が見つかりません: ID $newBookId")
     }
@@ -52,15 +44,7 @@ class BookRepository(private val dslContext: DSLContext) {
             .where(BOOK_AUTHORS.BOOK_ID.eq(bookId))
             .execute()
 
-        if (authorIds.isNotEmpty()) {
-            val rows = authorIds.map { authorId ->
-                dslContext.newRecord(BOOK_AUTHORS).apply {
-                    this.bookId = bookId
-                    this.authorId = authorId
-                }
-            }
-            dslContext.batchInsert(rows).execute()
-        }
+        insertBookAuthorAssociations(bookId, authorIds)
     }
 
     fun findById(id: Long): Book? {
@@ -88,4 +72,17 @@ class BookRepository(private val dslContext: DSLContext) {
             updatedAt = record.updatedAt!!
         )
     }
+
+    private fun insertBookAuthorAssociations(bookId: Long, authorIds: List<Long>) {
+        if (authorIds.isNotEmpty()) {
+            val rows = authorIds.map { authorId ->
+                dslContext.newRecord(BOOK_AUTHORS).apply {
+                    this.bookId = bookId
+                    this.authorId = authorId
+                }
+            }
+            dslContext.batchInsert(rows).execute()
+        }
+    }
+
 }
