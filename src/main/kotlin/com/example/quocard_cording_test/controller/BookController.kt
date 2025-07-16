@@ -4,7 +4,6 @@ import com.example.quocard_cording_test.dto.BookCreateRequest
 import com.example.quocard_cording_test.dto.BookResponse
 import com.example.quocard_cording_test.dto.BookUpdateRequest
 import com.example.quocard_cording_test.dto.toResponse
-import com.example.quocard_cording_test.model.Book
 import com.example.quocard_cording_test.service.BookService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import java.time.format.DateTimeFormatter
 
 @RestController
 @RequestMapping("/api/books")
