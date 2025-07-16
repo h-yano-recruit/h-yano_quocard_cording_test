@@ -1,5 +1,6 @@
 package com.example.quocard_cording_test.service
 
+import com.example.quocard_cording_test.dto.AuthorUpdateRequest
 import com.example.quocard_cording_test.model.Author
 import com.example.quocard_cording_test.repository.AuthorRepository
 import com.example.quocard_cording_test.exception.ValidationException
@@ -16,13 +17,14 @@ class AuthorService(private val authorRepository: AuthorRepository) {
     }
 
     @Transactional
-    fun updateAuthorDateOfBirth(id: Long, dateOfBirth: LocalDate): Author {
+    fun updateAuthor(id: Long, request: AuthorUpdateRequest): Author {
         authorRepository.findById(id)
             ?: throw ValidationException("ID: ${id} の著者は見つかりません。")
 
+        val dateOfBirth = request.dateOfBirth
         validateDateOfBirth(dateOfBirth)
 
-        authorRepository.updateDateOfBirth(id, dateOfBirth)
+        authorRepository.update(id, request.name, dateOfBirth)
 
         return authorRepository.findById(id)!!
     }

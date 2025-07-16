@@ -21,13 +21,13 @@ class AuthorRepository(private val dslContext: DSLContext) {
         return recordToAuthor(record)
     }
 
-    fun updateDateOfBirth(id: Long, dateOfBirth: LocalDate): Int {
+    fun update(id: Long, name: String, dateOfBirth: LocalDate): Int {
         return dslContext.update(AUTHORS)
+            .set(AUTHORS.NAME, name) // ★nameの更新を追加
             .set(AUTHORS.DATE_OF_BIRTH, dateOfBirth)
             .where(AUTHORS.ID.eq(id))
             .execute()
     }
-
     fun findById(id: Long): Author? {
         return dslContext.selectFrom(AUTHORS)
             .where(AUTHORS.ID.eq(id))

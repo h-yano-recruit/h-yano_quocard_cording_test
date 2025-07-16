@@ -1,7 +1,7 @@
 package com.example.quocard_cording_test.controller
 
 import com.example.quocard_cording_test.dto.AuthorCreateRequest
-import com.example.quocard_cording_test.dto.AuthorDateOfBirthUpdateRequest
+import com.example.quocard_cording_test.dto.AuthorUpdateRequest
 import com.example.quocard_cording_test.dto.AuthorResponse
 import com.example.quocard_cording_test.dto.toResponse
 import com.example.quocard_cording_test.service.AuthorService
@@ -22,11 +22,11 @@ class AuthorController(private val authorService: AuthorService) {
     }
 
     @PutMapping("/{id}")
-    fun updateDateOfBirth(
+    fun update(
         @PathVariable id: Long,
-        @RequestBody request: AuthorDateOfBirthUpdateRequest
+        @RequestBody request: AuthorUpdateRequest
     ): ResponseEntity<AuthorResponse> {
-        val updatedAuthor = authorService.updateAuthorDateOfBirth(id, request.dateOfBirth)
+        val updatedAuthor = authorService.updateAuthor(id, request)
         return ResponseEntity.ok(updatedAuthor.toResponse())
     }
 }

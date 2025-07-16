@@ -7,7 +7,9 @@ data class AuthorCreateRequest(
     val dateOfBirth: LocalDate
 )
 
-data class AuthorDateOfBirthUpdateRequest(
+// 【新規】名前と生年月日を更新するためのリクエスト用DTO
+data class AuthorUpdateRequest(
+    val name: String,
     val dateOfBirth: LocalDate
 )
 
