@@ -9,7 +9,7 @@ $$ LANGUAGE plpgsql;
 -- 著者テーブル
 CREATE TABLE authors (
     id            BIGSERIAL PRIMARY KEY,
-    name          VARCHAR(255) NOT NULL UNIQUE,
+    name          VARCHAR(255) NOT NULL,
     date_of_birth DATE         NOT NULL,
     created_at    TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
     updated_at    TIMESTAMPTZ  NOT NULL DEFAULT NOW()
