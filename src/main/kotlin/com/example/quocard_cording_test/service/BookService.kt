@@ -18,17 +18,7 @@ class BookService(
 
     @Transactional
     fun createBook(request: BookCreateRequest): Book {
-        if (request.price < BigDecimal.ZERO) {
-            throw ValidationException("価格は0以上である必要があります。")
-        }
-        if (request.authorIds.isEmpty()) {
-            throw ValidationException("書籍には最低1人の著者が必要です。")
-        }
-
-        val existingAuthorsCount = authorRepository.countExistingAuthors(request.authorIds)
-        if (existingAuthorsCount != request.authorIds.size) {
-            throw ValidationException("指定された著者IDの一部、またはすべてが存在しません。")
-        }
+        validateBook(request.price, request.authorIds)
 
         return bookRepository.create(request.title, request.price, request.status, request.authorIds)
     }
