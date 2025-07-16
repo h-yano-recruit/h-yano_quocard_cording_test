@@ -43,4 +43,14 @@ class AuthorRepository(private val dslContext: DSLContext) {
             updatedAt = record.updatedAt!!
         )
     }
+
+    fun countExistingAuthors(authorIds: List<Long>): Int {
+        if (authorIds.isEmpty()) {
+            return 0
+        }
+        return dslContext.selectCount()
+            .from(AUTHORS)
+            .where(AUTHORS.ID.`in`(authorIds))
+            .fetchOne(0, Int::class.java) ?: 0
+    }
 }
