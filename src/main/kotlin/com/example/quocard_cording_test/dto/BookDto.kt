@@ -6,7 +6,8 @@ import java.math.BigDecimal
 data class BookCreateRequest(
     val title: String,
     val price: BigDecimal,
-    val status: PublicationStatus
+    val status: PublicationStatus,
+    val authorIds: List<Long> // 最低1人の著者が必須
 )
 
 data class BookResponse(
@@ -14,6 +15,7 @@ data class BookResponse(
     val title: String,
     val price: BigDecimal,
     val status: PublicationStatus,
+    val authors: List<AuthorResponse>,
     val createdAt: String,
     val updatedAt: String
 )

@@ -24,6 +24,7 @@ data class Book(
     val title: String,
     val price: BigDecimal,
     val status: PublicationStatus,
+    val authors: List<Author>,
     val createdAt: OffsetDateTime,
     val updatedAt: OffsetDateTime
 )

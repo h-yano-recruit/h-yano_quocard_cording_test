@@ -16,6 +16,9 @@ class BookService(private val bookRepository: BookRepository) {
         if (request.price < BigDecimal.ZERO) {
             throw ValidationException("価格は0以上である必要があります。")
         }
-        return bookRepository.create(request.title, request.price, request.status)
+        if (request.authorIds.isEmpty()) {
+            throw ValidationException("書籍には最低1人の著者が必要です。")
+        }
+        return bookRepository.create(request.title, request.price, request.status, request.authorIds)
     }
 }

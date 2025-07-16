@@ -2,6 +2,7 @@ package com.example.quocard_cording_test.controller
 
 import com.example.quocard_cording_test.dto.BookCreateRequest
 import com.example.quocard_cording_test.dto.BookResponse
+import com.example.quocard_cording_test.dto.toResponse
 import com.example.quocard_cording_test.model.Book
 import com.example.quocard_cording_test.service.BookService
 import org.springframework.http.HttpStatus
@@ -30,6 +31,7 @@ class BookController(private val bookService: BookService) {
             title = this.title,
             price = this.price,
             status = this.status,
+            authors = this.authors.map { it.toResponse() },
             createdAt = this.createdAt.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME),
             updatedAt = this.updatedAt.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
         )
