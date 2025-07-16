@@ -2,12 +2,15 @@ package com.example.quocard_cording_test.controller
 
 import com.example.quocard_cording_test.dto.BookCreateRequest
 import com.example.quocard_cording_test.dto.BookResponse
+import com.example.quocard_cording_test.dto.BookUpdateRequest
 import com.example.quocard_cording_test.dto.toResponse
 import com.example.quocard_cording_test.model.Book
 import com.example.quocard_cording_test.service.BookService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -23,6 +26,15 @@ class BookController(private val bookService: BookService) {
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(createdBook.toResponse())
+    }
+
+    @PutMapping("/{id}")
+    fun update(
+        @PathVariable id: Long,
+        @RequestBody request: BookUpdateRequest
+    ): ResponseEntity<BookResponse> {
+        val updatedBook = bookService.updateBook(id, request)
+        return ResponseEntity.ok(updatedBook.toResponse())
     }
 
     private fun Book.toResponse(): BookResponse {

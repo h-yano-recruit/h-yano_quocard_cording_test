@@ -37,6 +37,32 @@ class BookRepository(private val dslContext: DSLContext) {
         return findById(newBookId) ?: throw IllegalStateException("作成した書籍が見つかりません: ID $newBookId")
     }
 
+    fun update(id: Long, title: String, price: BigDecimal, status: PublicationStatus) {
+        dslContext.update(BOOKS)
+            .set(BOOKS.TITLE, title)
+            .set(BOOKS.PRICE, price)
+            .set(BOOKS.STATUS, status.code)
+            .where(BOOKS.ID.eq(id))
+            .execute()
+    }
+
+    // 書籍と著者の関連を更新する（既存を全削除し、新しいもので再登録する方式）
+    fun updateBookAuthorAssociations(bookId: Long, authorIds: List<Long>) {
+        dslContext.deleteFrom(BOOK_AUTHORS)
+            .where(BOOK_AUTHORS.BOOK_ID.eq(bookId))
+            .execute()
+
+        if (authorIds.isNotEmpty()) {
+            val rows = authorIds.map { authorId ->
+                dslContext.newRecord(BOOK_AUTHORS).apply {
+                    this.bookId = bookId
+                    this.authorId = authorId
+                }
+            }
+            dslContext.batchInsert(rows).execute()
+        }
+    }
+
     fun findById(id: Long): Book? {
         val bookRecord = dslContext.selectFrom(BOOKS)
             .where(BOOKS.ID.eq(id))

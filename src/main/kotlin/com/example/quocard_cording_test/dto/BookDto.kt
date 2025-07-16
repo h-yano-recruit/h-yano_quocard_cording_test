@@ -10,6 +10,13 @@ data class BookCreateRequest(
     val authorIds: List<Long> // 最低1人の著者が必須
 )
 
+data class BookUpdateRequest(
+    val title: String,
+    val price: BigDecimal,
+    val status: PublicationStatus,
+    val authorIds: List<Long>
+)
+
 data class BookResponse(
     val id: Long,
     val title: String,
