@@ -50,7 +50,6 @@ class BookService(
             throw ValidationException("書籍には最低1人の著者が必要です。")
         }
 
-        // 【推奨】後で、著者IDがDBに実在するかのチェックもここに追加する
         val existingAuthorsCount = authorRepository.countExistingAuthors(authorIds)
         if (existingAuthorsCount != authorIds.size) {
             throw ValidationException("指定された著者IDの一部、またはすべてが存在しません。")
