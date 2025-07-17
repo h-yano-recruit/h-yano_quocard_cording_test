@@ -42,6 +42,13 @@ Spring BootとKotlin、jOOQを使用した書籍・著者管理アプリケー�
     ./gradlew flywayMigrate
     ```
 
+1. jooqCodegenの実行
+   以下のコマンドを実行してjOOQの型安全なコードを作成します。
+
+    ```bash
+   ./gradlew jooqCodegen
+   ```
+
 1. アプリケーションの起動  
    以下のコマンドでSpring Bootアプリケーションを起動します。
 
