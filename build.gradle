@@ -59,10 +59,9 @@ jooq {
 			name = "org.jooq.codegen.KotlinGenerator"
 			jdbc {
 				driver = "org.postgresql.Driver"
-				url = "jdbc:postgresql://localhost:5432/mydatabase"
-				// TODO: このあたりの情報は別ファイルなどに移す。今回はデフォルトを採用しているだけなので一旦そのまま進める
-				user = "myuser"
-				password = "secret"
+				url = dbUrl
+				user = dbUser
+				password = dbPassword
 			}
 			database {
 				name = "org.jooq.meta.postgres.PostgresDatabase"
@@ -83,7 +82,21 @@ sourceSets {
 }
 
 flyway {
-	url = 'jdbc:postgresql://localhost:5432/mydatabase'
-	user = 'myuser'
-	password = 'secret'
+	url = dbUrl
+	user = dbUser
+	password = dbPassword
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
+processResources {
+	filesMatching('**/application.properties') {
+		filter(
+				ReplaceTokens,
+				tokens: [
+						'dbUser': "${dbUser}".toString(),
+						'dbPassword': "${dbPassword}".toString(),
+						'dbUrl': "${dbUrl}".toString(),
+				]
+		)
+	}
 }
