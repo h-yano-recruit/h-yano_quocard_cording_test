@@ -6,6 +6,7 @@ import com.example.quocard_cording_test.dto.AuthorResponse
 import com.example.quocard_cording_test.dto.BookResponse
 import com.example.quocard_cording_test.dto.toResponse
 import com.example.quocard_cording_test.service.AuthorService
+import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/authors")
 class AuthorController(private val authorService: AuthorService) {
 
+    @Operation(summary = "著者の新規作成", description = "新しい著者情報を登録します。")
     @PostMapping
     fun create(@RequestBody request: AuthorCreateRequest): ResponseEntity<AuthorResponse> {
         val createdAuthor = authorService.createAuthor(request.name, request.dateOfBirth)
@@ -22,6 +24,7 @@ class AuthorController(private val authorService: AuthorService) {
             .body(createdAuthor.toResponse())
     }
 
+    @Operation(summary = "著者の更新", description = "指定されたIDの著者情報を更新します。")
     @PutMapping("/{id}")
     fun update(
         @PathVariable id: Long,
@@ -31,6 +34,7 @@ class AuthorController(private val authorService: AuthorService) {
         return ResponseEntity.ok(updatedAuthor.toResponse())
     }
 
+    @Operation(summary = "著者に紐づく書籍の取得", description = "指定されたIDの著者が執筆した書籍の一覧を取得します。")
     @GetMapping("/{id}/books")
     fun findBooksByAuthor(@PathVariable id: Long): ResponseEntity<List<BookResponse>> {
         val books = authorService.findBooksByAuthor(id)
