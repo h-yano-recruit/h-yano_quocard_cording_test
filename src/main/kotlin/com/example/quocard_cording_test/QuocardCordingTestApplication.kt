@@ -7,16 +7,16 @@ import org.springframework.boot.runApplication
 
 
 @OpenAPIDefinition(
-	info = Info(
-		title = "書籍・著者管理API",
-		version = "1.0.0",
-		description = "クオカード社コーディングテスト: 書籍・著書管理のためのAPI仕様書です。"
-	)
+    info = Info(
+        title = "書籍・著者管理API",
+        version = "1.0.0",
+        description = "クオカード社コーディングテスト: 書籍・著書管理のためのAPI仕様書です。"
+    )
 )
 
 @SpringBootApplication
 class QuocardCordingTestApplication
 
 fun main(args: Array<String>) {
-	runApplication<QuocardCordingTestApplication>(*args)
+    runApplication<QuocardCordingTestApplication>(*args)
 }

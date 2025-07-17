@@ -1,10 +1,6 @@
 package com.example.quocard_cording_test.controller
 
-import com.example.quocard_cording_test.dto.AuthorCreateRequest
-import com.example.quocard_cording_test.dto.AuthorUpdateRequest
-import com.example.quocard_cording_test.dto.AuthorResponse
-import com.example.quocard_cording_test.dto.BookResponse
-import com.example.quocard_cording_test.dto.toResponse
+import com.example.quocard_cording_test.dto.*
 import com.example.quocard_cording_test.service.AuthorService
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus

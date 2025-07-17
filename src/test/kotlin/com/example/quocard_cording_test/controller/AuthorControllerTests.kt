@@ -37,7 +37,12 @@ class AuthorControllerTests {
     @Test
     fun `create - 異常系 - リクエストが無効な場合に400エラーが返ること`() {
         val requestBody = mapOf("name" to "未来の著者", "dateOfBirth" to "2999-01-01")
-        `when`(authorService.createAuthor(any(), any())).thenThrow(ValidationException("生年月日は過去の日付である必要があります。"))
+        `when`(
+            authorService.createAuthor(
+                any(),
+                any()
+            )
+        ).thenThrow(ValidationException("生年月日は過去の日付である必要があります。"))
 
         mockMvc.perform(
             post("/api/authors")
@@ -79,7 +84,8 @@ class AuthorControllerTests {
     @Test
     fun `create - 正常系 - 新しい著者を正常に作成できること`() {
         val requestBody = mapOf("name" to "新規テスト著者", "dateOfBirth" to "2001-01-01")
-        val createdAuthor = Author(1L, "新規テスト著者", LocalDate.of(2001, 1, 1), OffsetDateTime.now(), OffsetDateTime.now())
+        val createdAuthor =
+            Author(1L, "新規テスト著者", LocalDate.of(2001, 1, 1), OffsetDateTime.now(), OffsetDateTime.now())
 
         `when`(authorService.createAuthor("新規テスト著者", LocalDate.of(2001, 1, 1))).thenReturn(createdAuthor)
 
@@ -96,8 +102,9 @@ class AuthorControllerTests {
     fun `update - 正常系 - 既存の著者を正常に更新できること`() {
         val authorId = 1L
         val requestBody = mapOf("name" to "更新後テスト著者", "dateOfBirth" to "2002-02-02")
-        val requestDto = AuthorUpdateRequest("更新後テスト著者", LocalDate.of(2002, 2, 2))
-        val updatedAuthor = Author(authorId, "更新後テスト著者", LocalDate.of(2002, 2, 2), OffsetDateTime.now(), OffsetDateTime.now())
+        AuthorUpdateRequest("更新後テスト著者", LocalDate.of(2002, 2, 2))
+        val updatedAuthor =
+            Author(authorId, "更新後テスト著者", LocalDate.of(2002, 2, 2), OffsetDateTime.now(), OffsetDateTime.now())
 
         `when`(authorService.updateAuthor(eq(authorId), any())).thenReturn(updatedAuthor)
 
@@ -118,7 +125,15 @@ class AuthorControllerTests {
         val authorId = 1L
         val author = Author(authorId, "テスト著者", LocalDate.now(), OffsetDateTime.now(), OffsetDateTime.now())
         val books = listOf(
-            Book(101L, "テスト書籍1", BigDecimal.TEN, PublicationStatus.PUBLISHED, listOf(author), OffsetDateTime.now(), OffsetDateTime.now())
+            Book(
+                101L,
+                "テスト書籍1",
+                BigDecimal.TEN,
+                PublicationStatus.PUBLISHED,
+                listOf(author),
+                OffsetDateTime.now(),
+                OffsetDateTime.now()
+            )
         )
 
         `when`(authorService.findBooksByAuthor(authorId)).thenReturn(books)

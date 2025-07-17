@@ -22,6 +22,7 @@ enum class PublicationStatus(@JsonValue val code: Int) {
         }
     }
 }
+
 data class Book(
     val id: Long,
     val title: String,

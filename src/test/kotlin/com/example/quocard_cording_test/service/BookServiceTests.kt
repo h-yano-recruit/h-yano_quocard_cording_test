@@ -100,7 +100,15 @@ class BookServiceTests {
         )
 
         `when`(bookRepository.findById(bookId)).thenReturn(
-            Book(bookId, "", BigDecimal.ZERO, PublicationStatus.UNPUBLISHED, emptyList(), OffsetDateTime.now(), OffsetDateTime.now())
+            Book(
+                bookId,
+                "",
+                BigDecimal.ZERO,
+                PublicationStatus.UNPUBLISHED,
+                emptyList(),
+                OffsetDateTime.now(),
+                OffsetDateTime.now()
+            )
         )
 
         val exception = assertThrows<ValidationException> {
@@ -120,7 +128,15 @@ class BookServiceTests {
         )
 
         `when`(bookRepository.findById(bookId)).thenReturn(
-            Book(bookId, "", BigDecimal.ZERO, PublicationStatus.UNPUBLISHED, emptyList(), OffsetDateTime.now(), OffsetDateTime.now())
+            Book(
+                bookId,
+                "",
+                BigDecimal.ZERO,
+                PublicationStatus.UNPUBLISHED,
+                emptyList(),
+                OffsetDateTime.now(),
+                OffsetDateTime.now()
+            )
         )
 
         val exception = assertThrows<ValidationException> {
@@ -140,7 +156,15 @@ class BookServiceTests {
         )
 
         `when`(bookRepository.findById(bookId)).thenReturn(
-            Book(bookId, "", BigDecimal.ZERO, PublicationStatus.UNPUBLISHED, emptyList(), OffsetDateTime.now(), OffsetDateTime.now())
+            Book(
+                bookId,
+                "",
+                BigDecimal.ZERO,
+                PublicationStatus.UNPUBLISHED,
+                emptyList(),
+                OffsetDateTime.now(),
+                OffsetDateTime.now()
+            )
         )
         `when`(authorRepository.countExistingAuthors(updateRequest.authorIds)).thenReturn(1)
 
@@ -198,7 +222,9 @@ class BookServiceTests {
         )
 
         `when`(authorRepository.countExistingAuthors(request.authorIds)).thenReturn(1)
-        `when`(bookRepository.create(request.title, request.price, request.status, request.authorIds)).thenReturn(createdBook)
+        `when`(bookRepository.create(request.title, request.price, request.status, request.authorIds)).thenReturn(
+            createdBook
+        )
 
         val result = bookService.createBook(request)
 
@@ -220,7 +246,8 @@ class BookServiceTests {
             authorIds = listOf(authorId)
         )
 
-        val updatedBook = currentBook.copy(title = "新しいタイトル", price = BigDecimal("1200"), status = PublicationStatus.PUBLISHED)
+        val updatedBook =
+            currentBook.copy(title = "新しいタイトル", price = BigDecimal("1200"), status = PublicationStatus.PUBLISHED)
 
         `when`(bookRepository.findById(bookId)).thenReturn(currentBook).thenReturn(updatedBook)
         `when`(authorRepository.countExistingAuthors(listOf(authorId))).thenReturn(1)

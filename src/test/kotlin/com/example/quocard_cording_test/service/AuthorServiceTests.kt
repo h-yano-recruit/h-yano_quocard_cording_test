@@ -86,8 +86,10 @@ class AuthorServiceTests {
     fun `updateAuthor - 正常系 - 著者を正常に更新できること`() {
         val authorId = 1L
         val request = AuthorUpdateRequest("更新後の名前", LocalDate.of(1995, 5, 5))
-        val existingAuthor = Author(authorId, "更新前の名前", LocalDate.of(1990,1,1), OffsetDateTime.now(), OffsetDateTime.now())
-        val updatedAuthor = Author(authorId, request.name, request.dateOfBirth, OffsetDateTime.now(), OffsetDateTime.now())
+        val existingAuthor =
+            Author(authorId, "更新前の名前", LocalDate.of(1990, 1, 1), OffsetDateTime.now(), OffsetDateTime.now())
+        val updatedAuthor =
+            Author(authorId, request.name, request.dateOfBirth, OffsetDateTime.now(), OffsetDateTime.now())
 
         `when`(authorRepository.findById(authorId))
             .thenReturn(existingAuthor)

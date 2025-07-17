@@ -32,6 +32,7 @@ class AuthorRepository(private val dslContext: DSLContext) {
             .where(AUTHORS.ID.eq(id))
             .execute()
     }
+
     fun findById(id: Long): Author? {
         return dslContext.selectFrom(AUTHORS)
             .where(AUTHORS.ID.eq(id))

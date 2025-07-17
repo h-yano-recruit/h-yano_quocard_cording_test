@@ -1,11 +1,11 @@
 package com.example.quocard_cording_test.repository
 
 import com.example.quocard_cording_test.jooq.generated.tables.records.BooksRecord
-import com.example.quocard_cording_test.jooq.generated.tables.references.BOOKS
 import com.example.quocard_cording_test.jooq.generated.tables.references.AUTHORS
+import com.example.quocard_cording_test.jooq.generated.tables.references.BOOKS
 import com.example.quocard_cording_test.jooq.generated.tables.references.BOOK_AUTHORS
-import com.example.quocard_cording_test.model.Book
 import com.example.quocard_cording_test.model.Author
+import com.example.quocard_cording_test.model.Book
 import com.example.quocard_cording_test.model.PublicationStatus
 import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
